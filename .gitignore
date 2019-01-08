@@ -1,0 +1,15 @@
+/bin/
+.idea/
+*.sqlite3
+*.pyc
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# for pyenv
+.python-version
+
+# static files
+/public/static/
