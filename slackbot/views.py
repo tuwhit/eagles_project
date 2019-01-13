@@ -21,7 +21,7 @@ class eagles(APIView):
         }
         
         try:
-            if 'text' in request.data:
+            if 'text' in request.data and request.data['text']:
                 score_str = games.get_game_score('HH', request.data['text'])
             else:
                 # 오늘, 어제 경기 스코어 가져옴
@@ -51,13 +51,12 @@ class kbo(APIView):
         }
 
         try:
-            if 'text' in request.data:
+            if 'text' in request.data and request.data['text']:
                 score_str = games.get_all_games(request.data['text'])
             else:
                 # 오늘, 어제 경기 스코어 가져옴
                 today = date.today()
                 yesterday = today - timedelta(1)
-                print(str(yesterday))
 
                 score_str = games.get_all_games(str(yesterday)) + '\n' +  games.get_all_games(str(today))
 
