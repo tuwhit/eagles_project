@@ -10,7 +10,7 @@ from rest_framework import status
 
 
 class eagles(APIView):
-    def get(self, request):
+    def post(self, request):
         response = {
             'text': '한화 이글스 스코어',
             'attachments': [
@@ -21,8 +21,8 @@ class eagles(APIView):
         }
         
         try:
-            if 'date' in request.query_params:
-                score_str = games.get_game_score('HH', request.query_params['date'])
+            if 'text' in request.data:
+                score_str = games.get_game_score('HH', request.data['text'])
             else:
                 # 오늘, 어제 경기 스코어 가져옴
                 today = date.today()
@@ -40,7 +40,7 @@ class eagles(APIView):
 
 
 class kbo(APIView):
-    def get(self, request):
+    def post(self, request):
         response = {
             'text': 'KBO 스코어',
             'attachments': [
@@ -51,8 +51,8 @@ class kbo(APIView):
         }
 
         try:
-            if 'date' in request.query_params:
-                score_str = games.get_all_games(request.query_params['date'])
+            if 'text' in request.data:
+                score_str = games.get_all_games(request.data['text'])
             else:
                 # 오늘, 어제 경기 스코어 가져옴
                 today = date.today()
