@@ -12,6 +12,7 @@ from rest_framework import status
 class eagles(APIView):
     def post(self, request):
         response = {
+            'response_type': 'in_channel',
             'text': '한화 이글스 스코어',
             'attachments': [
                 {
@@ -42,6 +43,7 @@ class eagles(APIView):
 class kbo(APIView):
     def post(self, request):
         response = {
+            'response_type': 'in_channel',
             'text': 'KBO 스코어',
             'attachments': [
                 {
