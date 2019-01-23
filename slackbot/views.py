@@ -7,6 +7,8 @@ from slackbot import games
 from datetime import date, timedelta
 from rest_framework.response import Response
 from rest_framework import status
+import requests
+import json
 
 
 class eagles(APIView):
@@ -69,3 +71,22 @@ class kbo(APIView):
             response['attachments'][0]['text'] = '스코어를 불러오는데 문제가 발생했습니다.'
 
             return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class auth(APIView):
+    def get(self, request):
+        code = request.query_params['code']
+        data = {
+            'client_id': '519504107603.518871462800',
+            'client_secret': 'a5eba39c4d6606516b53ff3468ca7459',
+            'code': code
+        }
+
+        # TODO: 예외 처리
+        r = requests.post('https://slack.com/api/oauth.access', data)
+        response = json.loads(r.text)
+
+        # 이건 어따쓰는거지?
+        # access_token = response['access_token']
+
+        return Response(response, status=status.HTTP_200_OK)

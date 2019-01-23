@@ -19,5 +19,6 @@ from slackbot import views
 
 urlpatterns = [
     url(r'^eagles?$', views.eagles.as_view(), name='eagles_score'),
-    url(r'^kbo?$', views.kbo.as_view(), name='kbo_score')
+    url(r'^kbo?$', views.kbo.as_view(), name='kbo_score'),
+    url(r'^auth?$', views.auth.as_view(), name='slack_auth')
 ]
