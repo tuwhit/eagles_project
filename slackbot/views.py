@@ -89,4 +89,8 @@ class auth(APIView):
         # 이건 어따쓰는거지?
         # access_token = response['access_token']
 
-        return Response(response, status=status.HTTP_200_OK)
+        # TODO: template  수정
+        if response['ok']:
+            return render(request, 'slackbot/auth_success.html')
+        else:
+            return render(request, 'slackbot/auth_fail.html')
