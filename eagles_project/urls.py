@@ -18,6 +18,9 @@ from django.conf.urls import url
 from slackbot import views
 
 urlpatterns = [
+    url(r'^install', views.index, name='index'),
+    url(r'^privacy', views.privacy, name='privacy'),
+    url(r'^support', views.support, name='support'),
     url(r'^eagles?$', views.eagles.as_view(), name='eagles_score'),
     url(r'^kbo?$', views.kbo.as_view(), name='kbo_score'),
     url(r'^auth?$', views.auth.as_view(), name='slack_auth')

@@ -94,3 +94,16 @@ class auth(APIView):
             return render(request, 'slackbot/auth_success.html')
         else:
             return render(request, 'slackbot/auth_fail.html')
+
+
+def index(request):
+    return render(request, 'slackbot/install.html')
+
+
+def privacy(request):
+    return render(request, 'slackbot/privacy.html')
+
+
+def support(request):
+    return render(request, 'slackbot/support.html')
+
