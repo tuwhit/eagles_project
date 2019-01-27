@@ -37,3 +37,13 @@
 .img-ss {
     width: 98%;
 }
+
+.auth-description {
+    color: darkgray;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.auth-img {
+    width: 130px;
+}

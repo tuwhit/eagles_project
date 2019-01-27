@@ -1,1 +1,19 @@
-Install Fail :(
+{% load static %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'slackbot/style.css' %}">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+
+<body class="background">
+  <div class="container">
+    <div class="header">
+      <div class="title">KBObot</div>
+    </div>
+    <div class="contents">
+      <img src="{% static 'slackbot/images/sad.png' %}" class="auth-img">
+      <div class="auth-description">Install Fail</div>
+    </div>
+  </div>
+</body>
+
