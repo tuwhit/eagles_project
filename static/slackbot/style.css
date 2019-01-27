@@ -1,49 +1,50 @@
 .background {
-    background-image: url('images/soori.jpg');
-    overflow-x: hidden;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url('images/soori.jpg');
+  overflow-x: hidden;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
 }
 
 .title {
-    font-size: 50px;
+  font-size: 50px;
 }
 
 .header {
-    margin-top: 100px;
-    text-align: center;
-    color: #ffffff;
+  margin-top: 100px;
+  text-align: center;
+  color: #ffffff;
 }
 
 .contents {
-    background-color: #ffffff;
-    border-radius: 5px;
-    width: 80%;
-    text-align: center;
-    position: relative;
-    margin: 50px auto;
-    padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  width: 80%;
+  text-align: center;
+  position: relative;
+  margin: 50px auto;
+  padding: 20px;
 }
 
 .des {
-    text-align: left;
-    color: darkgray;
-    padding: 20px;
-    font-style: italic;
+  text-align: left;
+  color: darkgray;
+  padding: 20px;
+  font-style: italic;
 }
 
 .img-ss {
-    width: 98%;
+  width: 98%;
 }
 
 .auth-description {
-    color: darkgray;
-    font-style: italic;
-    font-size: 20px;
+  color: darkgray;
+  font-style: italic;
+  font-size: 20px;
 }
 
 .auth-img {
-    width: 130px;
+  width: 130px;
 }
