@@ -1,0 +1,39 @@
+.background {
+    background-image: url('images/soori.jpg');
+    overflow-x: hidden;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.title {
+    font-size: 50px;
+}
+
+.header {
+    margin-top: 100px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.contents {
+    background-color: #ffffff;
+    border-radius: 5px;
+    width: 80%;
+    text-align: center;
+    position: relative;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.des {
+    text-align: left;
+    color: darkgray;
+    padding: 20px;
+    font-style: italic;
+}
+
+.img-ss {
+    width: 98%;
+}

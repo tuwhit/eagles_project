@@ -1,0 +1,27 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'slackbot/style.css' %}">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+
+<body class="background">
+  <div class="container">
+    <div class="header">
+      <div class="title">KBObot</div>
+{#      <h3>KBO 경기 스코어를 한눈에</h3>#}
+      <a href="https://slack.com/oauth/authorize?client_id=519504107603.518871462800&amp;scope=commands">
+          <img alt="Add to Slack" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" width="139" height="40">
+      </a>
+    </div>
+    <div class="contents">
+{#      <h3>how it works</h3>#}
+      <p class="des">Type '/kbo'. The date is optional.</p>
+      <img src="{% static 'slackbot/images/screenshot01.png' %}" class="img-ss">
+      <p class="des" style="margin-top: 20px;">If you do not enter a date, the score for yesterday and today will be shown.
+        If you enter a date, the score for that date will be shown.</p>
+      <img src="{% static 'slackbot/images/screenshot02.png' %}" class="img-ss">
+    </div>
+  </div>
+</body>
+
