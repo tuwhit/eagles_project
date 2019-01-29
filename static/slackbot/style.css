@@ -35,6 +35,15 @@
   font-style: italic;
 }
 
+.privacy {
+  text-align: center;
+  color: darkgray;
+  font-style: italic;
+  margin: 30px;
+  border-top: 1px solid darkgray;
+  padding-top: 30px;
+}
+
 .img-ss {
   width: 98%;
 }
