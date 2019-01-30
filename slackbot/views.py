@@ -62,7 +62,7 @@ class kbo(APIView):
     print('header print', request.MEAT)
 
     slack_signing_secret = '8c91f513bae502d0ed124a2d23c05cf2'
-    ts = request.META['X-Slack-Request-Timestamp']
+    ts = request.META['HTTP_X_Slack_Request_Timestamp']
 
     if time.time() - ts > 60 * 5:
       return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -70,7 +70,7 @@ class kbo(APIView):
     sig_basestring = 'v0:' + ts + ':' + request.data
     my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
 
-    slack_signature = request.META['X-Slack-Signature']
+    slack_signature = request.META['HTTP_X_Slack_Signature']
 
     if not hmac.compare(my_signature, slack_signature):
       return Response(status=status.HTTP_401_UNAUTHORIZED)
