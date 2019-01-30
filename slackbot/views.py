@@ -56,7 +56,7 @@ class kbo(APIView):
     }
 
     # verify request
-    verify_requests.verify(request.META['HTTP_X_SLACK_REQUEST_TIMESTAMP'], request.META['HTTP_X_SLACK_SIGNATURE'], request.data)
+    verify_requests.verify(request.META, request.data)
 
     try:
       if 'text' in request.data and request.data['text']:

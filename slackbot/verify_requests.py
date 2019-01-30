@@ -5,7 +5,12 @@ import hashlib
 import time
 
 
-def verify(timestamp, signature, data):
+def verify(header, data):
+  if 'HTTP_X_SLACK_REQUEST_TIMESTAMP' not in header or 'HTTP_X_SLACK_SIGNATURE' not in header:
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+  timestamp = header['HTTP_X_SLACK_REQUEST_TIMESTAMP']
+  signature = header['HTTP_X_SLACK_SIGNATURE']
   slack_signing_secret = '8c91f513bae502d0ed124a2d23c05cf2'
 
   if time.time() - float(timestamp) > 60 * 5:
