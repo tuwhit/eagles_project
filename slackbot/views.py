@@ -1,17 +1,11 @@
-from django.http import QueryDict
 from django.shortcuts import render
 from rest_framework.views import APIView
-from slackbot import games
+from slackbot import games, verify_requests
 from datetime import date, timedelta
 from rest_framework.response import Response
 from rest_framework import status
-import time
 import requests
 import json
-import logging
-import hmac
-import hashlib
-import base64
 
 
 def index(request):
@@ -61,24 +55,8 @@ class kbo(APIView):
       ]
     }
 
-    slack_signing_secret = '8c91f513bae502d0ed124a2d23c05cf2'
-    ts = request.META['HTTP_X_SLACK_REQUEST_TIMESTAMP']
-
-    if time.time() - float(ts) > 60 * 5:
-      return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-    print('request_print', request.data)
-    sig_basestring = 'v0:' + ts + ':' + request.data.urlencode()
-    print('sig_gasestring_print', sig_basestring)
-    my_signature = 'v0=' + hmac.new(bytes(slack_signing_secret, 'utf-8'), sig_basestring.encode('utf-8'), hashlib.sha256).hexdigest()
-    print('my_signature_print', my_signature)
-    # my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
-
-    slack_signature = request.META['HTTP_X_SLACK_SIGNATURE']
-    print('slack signature', slack_signature)
-
-    if not hmac.compare_digest(my_signature, slack_signature):
-      return Response(status=status.HTTP_401_UNAUTHORIZED)
+    # verify request
+    verify_requests.verify(request.META['HTTP_X_SLACK_REQUEST_TIMESTAMP'], request.META['HTTP_X_SLACK_SIGNATURE'], request.data)
 
     try:
       if 'text' in request.data and request.data['text']:
