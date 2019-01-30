@@ -58,7 +58,7 @@ class kbo(APIView):
       ]
     }
 
-    if verify_requests(request.META, request.data):
+    if verify_requests(request.META['X-Slack-Request-Timestamp'], request.META['X-Slack-Signature'], request.data):
       try:
         if 'text' in request.data and request.data['text']:
           score_str = games.get_all_games(request.data['text'])
