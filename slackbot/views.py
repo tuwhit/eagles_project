@@ -1,3 +1,4 @@
+from django.http import QueryDict
 from django.shortcuts import render
 from rest_framework.views import APIView
 from slackbot import games
@@ -7,8 +8,10 @@ from rest_framework import status
 import time
 import requests
 import json
-import hmac
 import logging
+import hmac
+import hashlib
+import base64
 
 
 def index(request):
@@ -64,14 +67,17 @@ class kbo(APIView):
     if time.time() - float(ts) > 60 * 5:
       return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-    print('request_body_print', request.data)
-    logging.error('request_body_log', request.data)
-    sig_basestring = 'v0:' + ts + ':' + str(request.data)
-    my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
+    print('request_print', request.data)
+    sig_basestring = 'v0:' + ts + ':' + request.data.urlencode()
+    print('sig_gasestring_print', sig_basestring)
+    my_signature = 'v0=' + hmac.new(slack_signing_secret, sig_basestring.encode('utf-8'), hashlib.sha256).hexdigest()
+    print('my_signature_print', my_signature)
+    # my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
 
     slack_signature = request.META['HTTP_X_SLACK_SIGNATURE']
+    print('slack signature', slack_signature)
 
-    if not hmac.compare(my_signature, slack_signature):
+    if not hmac.compare_digest(my_signature, slack_signature):
       return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     try:
