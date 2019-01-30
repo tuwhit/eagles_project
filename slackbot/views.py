@@ -64,7 +64,8 @@ class kbo(APIView):
     if time.time() - float(ts) > 60 * 5:
       return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-    sig_basestring = 'v0:' + ts + ':' + request.data
+    print('request_body_print', request.data)
+    sig_basestring = 'v0:' + ts + ':' + str(request.data)
     my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
 
     slack_signature = request.META['HTTP_X_SLACK_SIGNATURE']
