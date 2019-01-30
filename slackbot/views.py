@@ -1,9 +1,4 @@
-import hmac
-
 from django.shortcuts import render
-
-# Create your views here.
-# eagle 오늘, 어제 경기 정보
 from rest_framework.views import APIView
 from slackbot import games
 from datetime import date, timedelta
@@ -12,6 +7,8 @@ from rest_framework import status
 import time
 import requests
 import json
+import hmac
+import logging
 
 
 def index(request):
@@ -60,6 +57,8 @@ class kbo(APIView):
         }
       ]
     }
+
+    logging.info('header', request.META)
 
     slack_signing_secret = '8c91f513bae502d0ed124a2d23c05cf2'
     ts = request.META['X-Slack-Request-Timestamp']
