@@ -70,7 +70,7 @@ class kbo(APIView):
     print('request_print', request.data)
     sig_basestring = 'v0:' + ts + ':' + request.data.urlencode()
     print('sig_gasestring_print', sig_basestring)
-    my_signature = 'v0=' + hmac.new(bytes(slack_signing_secret), sig_basestring.encode('utf-8'), hashlib.sha256).hexdigest()
+    my_signature = 'v0=' + hmac.new(bytes(slack_signing_secret, 'utf-8'), sig_basestring.encode('utf-8'), hashlib.sha256).hexdigest()
     print('my_signature_print', my_signature)
     # my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
 
