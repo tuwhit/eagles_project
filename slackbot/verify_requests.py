@@ -1,20 +1,18 @@
+from rest_framework.response import Response
+from rest_framework import status
 import hmac
+import hashlib
 import time
 
 
-def verify_slack_request(request_ts, signature, body):
+def verify(timestamp, signature, data):
   slack_signing_secret = '8c91f513bae502d0ed124a2d23c05cf2'
-  ts = request_ts
 
-  if time.time() - ts > 60 * 5:
-    return False
+  if time.time() - float(timestamp) > 60 * 5:
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-  sig_basestring = 'v0:' + ts + ':' + body
-  my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
+  sig_basestring = 'v0:' + timestamp + ':' + data.urlencode()
+  my_signature = 'v0=' + hmac.new(bytes(slack_signing_secret, 'utf-8'), sig_basestring.encode('utf-8'), hashlib.sha256).hexdigest()
 
-  slack_signature = signature
-
-  if hmac.compare(my_signature, slack_signature):
-    return True
-  else:
-    return False
+  if not hmac.compare_digest(my_signature, signature):
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
