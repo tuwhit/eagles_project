@@ -59,6 +59,7 @@ class kbo(APIView):
     }
 
     logging.error('header print', request.META)
+    print('header print', request.MEAT)
 
     slack_signing_secret = '8c91f513bae502d0ed124a2d23c05cf2'
     ts = request.META['X-Slack-Request-Timestamp']
