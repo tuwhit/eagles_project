@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 # eagle 오늘, 어제 경기 정보
 from rest_framework.views import APIView
-from slackbot import games
+from slackbot import games, verify_requests
 from datetime import date, timedelta
 from rest_framework.response import Response
 from rest_framework import status
@@ -59,6 +59,8 @@ class kbo(APIView):
     }
 
     try:
+      verify_requests(request.META, request.data)
+
       if 'text' in request.data and request.data['text']:
         score_str = games.get_all_games(request.data['text'])
       else:
