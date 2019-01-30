@@ -65,6 +65,7 @@ class kbo(APIView):
       return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     print('request_body_print', request.data)
+    logging.error('request_body_log', request.data)
     sig_basestring = 'v0:' + ts + ':' + str(request.data)
     my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret, sig_basestring).hexdigest()
 
