@@ -56,25 +56,26 @@ class kbo(APIView):
     }
 
     # verify request
-    verify_requests.verify(request.META, request.data)
+    if verify_requests.verify(request.META, request.data):
+      try:
+        if 'text' in request.data and request.data['text']:
+          score_str = games.get_all_games(request.data['text'])
+        else:
+          # 오늘, 어제 경기 스코어 가져옴
+          today = date.today()
+          yesterday = today - timedelta(1)
 
-    try:
-      if 'text' in request.data and request.data['text']:
-        score_str = games.get_all_games(request.data['text'])
-      else:
-        # 오늘, 어제 경기 스코어 가져옴
-        today = date.today()
-        yesterday = today - timedelta(1)
+          score_str = games.get_all_games(str(yesterday)) + '\n' + games.get_all_games(str(today))
 
-        score_str = games.get_all_games(str(yesterday)) + '\n' +  games.get_all_games(str(today))
+        response['attachments'][0]['text'] = score_str
 
-      response['attachments'][0]['text'] = score_str
+        return Response(response, status=status.HTTP_200_OK)
+      except:
+        response['attachments'][0]['text'] = '스코어를 불러오는데 문제가 발생했습니다.'
 
-      return Response(response, status=status.HTTP_200_OK)
-    except:
-      response['attachments'][0]['text'] = '스코어를 불러오는데 문제가 발생했습니다.'
-
-      return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+      return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class auth(APIView):
