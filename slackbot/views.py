@@ -58,13 +58,10 @@ class kbo(APIView):
       ]
     }
 
-    logging.error('header print', request.META)
-    print('header print', request.META)
-
     slack_signing_secret = '8c91f513bae502d0ed124a2d23c05cf2'
     ts = request.META['HTTP_X_SLACK_REQUEST_TIMESTAMP']
 
-    if time.time() - ts > 60 * 5:
+    if time.time() - float(ts) > 60 * 5:
       return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     sig_basestring = 'v0:' + ts + ':' + request.data
